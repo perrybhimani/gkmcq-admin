@@ -50,7 +50,7 @@ export default function Router() {
             { path: '/dashboard/add/question', element: <AddEditQuestion /> },
             { path: '/dashboard/edit/question', element: <AddEditQuestion /> },
             { path: '/dashboard/question', element: <Questions /> },
-            { path: '/dashboard/comments', element: <Discussion /> },
+            // { path: '/dashboard/comments', element: <Discussion /> },
             { path: '/dashboard/hint', element: <Hint /> }
             // { path: '/dashboard/products', element: <Products /> },
           ]

@@ -51,7 +51,7 @@ const TABLE_HEAD = [
   { id: 'image', label: 'Image', alignRight: false },
   { id: 'type', label: 'Type', alignRight: false },
   { id: 'title', label: 'Title', alignRight: false },
-  { id: 'composerName', label: 'Composer Name', alignRight: false },
+  // { id: 'composerName', label: 'Composer Name', alignRight: false },
   { id: '' },
   { id: '' }
 ];
@@ -190,7 +190,7 @@ function Questions(props) {
         <Stack direction="column" alignItems="center" mb={5}>
           <Stack direction="row" alignItems="center" justifyContent="space-between" width="100%">
             <Typography variant="h4" gutterBottom>
-              Question
+              Questions of Different Category
             </Typography>
             <Stack direction="row" alignItems="center" justifyContent="space-between">
               <Hidden smDown>
@@ -278,8 +278,7 @@ function Questions(props) {
                         {filteredQuestions
                           .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                           .map((row) => {
-                            const { _id, questionTitle, title, image, type, composerName, hint } =
-                              row;
+                            const { _id, questionTitle, title, image, type, hint } = row;
 
                             return (
                               <TableRow hover key={_id} tabIndex={-1} role="checkbox">
@@ -291,8 +290,8 @@ function Questions(props) {
                                 </TableCell>
                                 <TableCell align="left">{type}</TableCell>
                                 <TableCell align="left">{title}</TableCell>
-                                <TableCell align="left">{composerName}</TableCell>
-                                <TableCell align="left">
+                                {/* <TableCell align="left">{composerName}</TableCell> */}
+                                {/* <TableCell align="left">
                                   <div style={{ display: 'flex' }}>
                                     <ActionButton
                                       value="Comments"
@@ -313,7 +312,7 @@ function Questions(props) {
                                       />
                                     )}
                                   </div>
-                                </TableCell>
+                                </TableCell> */}
                                 <TableCell align="right">
                                   <UserMoreMenu
                                     onDelete={() => {

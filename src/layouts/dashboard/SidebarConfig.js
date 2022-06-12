@@ -12,17 +12,17 @@ const sidebarConfig = [
   //   icon: getIcon('eva:pie-chart-2-fill')
   // },
   {
-    title: 'user',
+    title: 'Users',
     path: '/dashboard/user',
     icon: getIcon('eva:people-fill')
   },
   {
-    title: 'topic',
+    title: 'GK-Category',
     path: '/dashboard/topic',
     icon: getIcon('dashicons:buddicons-topics')
   },
   {
-    title: 'question',
+    title: 'Questions',
     path: '/dashboard/question',
     icon: getIcon('mdi:frequently-asked-questions')
   }

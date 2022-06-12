@@ -53,7 +53,7 @@ export default function UserMoreMenu(props) {
             <ListItemText primary="Edit" primaryTypographyProps={{ variant: 'body2' }} />
           </MenuItem>
         )}
-        {props.hint && (
+        {/* {props.hint && (
           <MenuItem
             sx={{ color: 'text.secondary' }}
             onClick={() => {
@@ -66,7 +66,7 @@ export default function UserMoreMenu(props) {
             </ListItemIcon>
             <ListItemText primary="Create Hint" primaryTypographyProps={{ variant: 'body2' }} />
           </MenuItem>
-        )}
+        )} */}
       </Menu>
     </>
   );

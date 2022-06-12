@@ -32,13 +32,13 @@ export const positionArray = [
 
 export const questionTypes = [
   { _id: 'MCQ', name: 'MCQ' },
-  { _id: 'MCQ (Audio)', name: 'MCQ (Audio)' },
-  { _id: 'MCQ (Image)', name: 'MCQ (Image)' },
-  { _id: 'Ranking', name: 'Ranking' },
-  { _id: 'Ranking (Audio)', name: 'Ranking (Audio)' },
-  { _id: 'Fill in the blanks', name: 'Fill in the blanks' },
-  { _id: 'Mix and Match', name: 'Mix and Match' },
-  { _id: 'Tapping Rhythm', name: 'Tapping Rhythm' }
+  // { _id: 'MCQ (Audio)', name: 'MCQ (Audio)' },
+  { _id: 'MCQ (Image)', name: 'MCQ (Image)' }
+  // { _id: 'Ranking', name: 'Ranking' },
+  // { _id: 'Ranking (Audio)', name: 'Ranking (Audio)' },
+  // { _id: 'Fill in the blanks', name: 'Fill in the blanks' },
+  // { _id: 'Mix and Match', name: 'Mix and Match' },
+  // { _id: 'Tapping Rhythm', name: 'Tapping Rhythm' }
 ];
 
 export const promptTypeArray = ['Text', 'Image', 'Audio'];

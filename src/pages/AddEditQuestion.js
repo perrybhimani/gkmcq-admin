@@ -104,17 +104,17 @@ function AddEditQuestion(props) {
   const [type, setType] = useState('MCQ');
   const [displayImage, setDisplayImage] = useState(null);
   const [title, setTitle] = useState('');
-  const [composerName, setComposerName] = useState('');
+  // const [composerName, setComposerName] = useState('');
   const [audioUrl, setAudioUrl] = useState(null);
   const [answer, setAnswer] = useState('');
-  const [options, setOptions] = useState([{ option: '', correctAnswer: true, prompt: [] }]);
+  const [options, setOptions] = useState([{ option: '', correctAnswer: true }]);
   const inputFile = useRef(null);
   const inputAudio = useRef(null);
   const optionInput = useRef([]);
   const [anchorEl, setAnchorEl] = useState([]);
   const [deleteDialog, setDeleteDialog] = useState(false);
-  const [promptIndex, setPromptIndex] = useState({});
-  const [promptType, setPromptType] = useState(null);
+  // const [promptIndex, setPromptIndex] = useState({});
+  // const [promptType, setPromptType] = useState(null);
 
   const { state, pathname } = useLocation();
 
@@ -138,10 +138,10 @@ function AddEditQuestion(props) {
       } else if (fileType && fileType === 'promptMedia') {
         const newOptions = [...options];
         const tempOptions = { ...newOptions[index] };
-        tempOptions.prompt[promptIndex].value = '';
+        // tempOptions.prompt[promptIndex].value = '';
         newOptions[index] = tempOptions;
         setOptions(newOptions);
-        document.getElementById(`${fileType}${index}${promptIndex}`).value = '';
+        // document.getElementById(`${fileType}${index}${promptIndex}`).value = '';
       } else if (fileType && fileType === 'option') {
         const newOptions = [...options];
         const tempOptions = { ...newOptions[index] };
@@ -198,14 +198,14 @@ function AddEditQuestion(props) {
           setAnswer(data.answer[0]);
         const newOptions = data.options.map((option) => {
           const tempOption = {
-            ...option,
-            prompt: option.prompt.map((pro) => (pro.type === 'text' ? getPrompt(pro) : pro))
+            ...option
+            // prompt: option.prompt.map((pro) => (pro.type === 'text' ? getPrompt(pro) : pro))
           };
           return tempOption;
         });
         setOptions(newOptions);
         setTitle(data.title);
-        setComposerName(data.composerName ? data.composerName : '');
+        // setComposerName(data.composerName ? data.composerName : '');
       }
     }
   }, [props.getQuestionData]);
@@ -228,6 +228,7 @@ function AddEditQuestion(props) {
   useEffect(() => {
     if (state && pathname === '/dashboard/edit/question') {
       const data = props.updateQuestionData ? props.updateQuestionData : null;
+      console.log('data', data);
       if (data) {
         props.clearUploadFile();
       }
@@ -293,7 +294,7 @@ function AddEditQuestion(props) {
       title,
       topicId
     };
-    if (composerName) data.composerName = composerName;
+    // if (composerName) data.composerName = composerName;
     if (displayImage) data.image = displayImage;
     if (audioUrl) data.audio = audioUrl;
     let correctAnswer;
@@ -309,22 +310,22 @@ function AddEditQuestion(props) {
     }
     const newOptions = options.map((option) => {
       const tempOption = {
-        ...option,
-        prompt: option.prompt.map((pro) => {
-          const prompt = {
-            type: pro.type,
-            value: pro.value
-          };
-          return prompt;
-        })
+        ...option
+        // prompt: option.prompt.map((pro) => {
+        //   const prompt = {
+        //     type: pro.type,
+        //     value: pro.value
+        //   };
+        //   return prompt;
+        // })
       };
       return tempOption;
     });
     const mcqOption = await newOptions.map((option) => {
       const data = {
         option: option.option,
-        correctAnswer: option.correctAnswer,
-        prompt: option.prompt
+        correctAnswer: option.correctAnswer
+        // prompt: option.prompt
       };
       if (option.audioName) data.audioName = option.audioName;
       if (option.imageName) data.imageName = option.imageName;
@@ -344,22 +345,22 @@ function AddEditQuestion(props) {
     if (audioUrl && audioUrl !== props.getQuestionData.audio) data.audio = audioUrl;
     const newOptions = options.map((option) => {
       const tempOption = {
-        ...option,
-        prompt: option.prompt.map((pro) => {
-          const prompt = {
-            type: pro.type,
-            value: pro.value
-          };
-          return prompt;
-        })
+        ...option
+        // prompt: option.prompt.map((pro) => {
+        //   const prompt = {
+        //     type: pro.type,
+        //     value: pro.value
+        //   };
+        //   return prompt;
+        // })
       };
       return tempOption;
     });
     const mcqOption = await newOptions.map((option) => {
       const data = {
         option: option.option,
-        correctAnswer: option.correctAnswer,
-        prompt: option.prompt
+        correctAnswer: option.correctAnswer
+        // prompt: option.prompt
       };
       if (option.audioName) data.audioName = option.audioName;
       if (option.imageName) data.imageName = option.imageName;
@@ -381,8 +382,8 @@ function AddEditQuestion(props) {
     if (!arraysAreIdentical(props.getQuestionData.answer, correctAnswer))
       data.answer = [...correctAnswer];
     if (title !== props.getQuestionData.title) data.title = title;
-    if (composerName && composerName !== props.getQuestionData.composerName)
-      data.composerName = composerName;
+    // if (composerName && composerName !== props.getQuestionData.composerName)
+    //   data.composerName = composerName;
     if (topicId !== props.getQuestionData.topicId) data.topicId = topicId;
     props.updateQuestion(state.questionId, data, navigate, topicId, (err) => onError(err));
   };
@@ -400,12 +401,13 @@ function AddEditQuestion(props) {
         const newOptions = [...options];
         const tempOptions = { ...newOptions[data.fileIndex] };
         const { file } = data;
-        if (
-          (data.type === 'promptMedia',
-          tempOptions && tempOptions.prompt && tempOptions.prompt[data.promptIndex])
-        )
-          tempOptions.prompt[data.promptIndex].value = file;
-        else tempOptions.option = file;
+        // if (
+        //   (data.type === 'promptMedia',
+        //   tempOptions && tempOptions.prompt && tempOptions.prompt[data.promptIndex])
+        // )
+        //   tempOptions.prompt[data.promptIndex].value = file;
+        // else
+        tempOptions.option = file;
         newOptions[data.fileIndex] = tempOptions;
         setOptions(newOptions);
       }
@@ -417,7 +419,7 @@ function AddEditQuestion(props) {
     const isMcqMatchOptionEmpty = options.find((opt) => !opt.matchOption);
     const isMcqAnswerEmpty = options.find((opt) => opt.correctAnswer);
 
-    const promptEmpty = options.find((opt) => opt.prompt.some((item) => item.value === ''));
+    // const promptEmpty = options.find((opt) => opt.prompt.some((item) => item.value === ''));
 
     const disableSave =
       !questionTitle ||
@@ -425,7 +427,7 @@ function AddEditQuestion(props) {
       props.addQuestionLoading ||
       !type ||
       !title ||
-      promptEmpty ||
+      // promptEmpty ||
       props.uploadFileLoading;
 
     let validateOption;
@@ -447,8 +449,8 @@ function AddEditQuestion(props) {
       if (
         disableSave ||
         props.updateQuestionLoading ||
-        validateOption ||
-        (props.getQuestionData.composerName && !composerName)
+        validateOption
+        // (props.getQuestionData.composerName && !composerName)
       ) {
         return true;
       }
@@ -472,8 +474,8 @@ function AddEditQuestion(props) {
       if (file) uploadFile(file, 'option', inputIndex);
     } else if (inputName === 'promptText') {
       const tempOptions = { ...newOptions[inputIndex] };
-      tempOptions.prompt[promptIndex].editorState = e;
-      tempOptions.prompt[promptIndex].value = draftToHtml(convertToRaw(e.getCurrentContent()));
+      // tempOptions.prompt[promptIndex].editorState = e;
+      // tempOptions.prompt[promptIndex].value = draftToHtml(convertToRaw(e.getCurrentContent()));
       newOptions[inputIndex] = tempOptions;
       setOptions(newOptions);
     } else if (inputName === 'promptMedia') {
@@ -511,11 +513,11 @@ function AddEditQuestion(props) {
     ) {
       await deleteFile(tempOptions.option);
     }
-    tempOptions.prompt.forEach((pro) => {
-      if (pro.type !== 'text' && pro.value) {
-        deleteFile(pro.value);
-      }
-    });
+    // tempOptions.prompt.forEach((pro) => {
+    //   if (pro.type !== 'text' && pro.value) {
+    //     deleteFile(pro.value);
+    //   }
+    // });
     const filteredOptions = options.filter((option, index) => index !== optionIndex);
     setOptions(filteredOptions);
   };
@@ -550,15 +552,15 @@ function AddEditQuestion(props) {
 
   const handleDeletePromptComponent = async () => {
     const newOption = [...options];
-    const tempOption = { ...newOption[promptIndex.optionIndex] };
-    if (promptType === 'media' && tempOption.prompt[promptIndex.promptIndex].value)
-      await deleteFile(tempOption.prompt[promptIndex.promptIndex].value);
-    tempOption.prompt = await tempOption.prompt.filter(
-      (pro, index) => index !== promptIndex.promptIndex
-    );
-    newOption[promptIndex.optionIndex] = tempOption;
+    // const tempOption = { ...newOption[promptIndex.optionIndex] };
+    // if (promptType === 'media' && tempOption.prompt[promptIndex.promptIndex].value)
+    //   await deleteFile(tempOption.prompt[promptIndex.promptIndex].value);
+    // tempOption.prompt = await tempOption.prompt.filter(
+    //   (pro, index) => index !== promptIndex.promptIndex
+    // );
+    // newOption[promptIndex.optionIndex] = tempOption;
     setOptions(newOption);
-    handleClose(promptIndex.optionIndex);
+    // handleClose(promptIndex.optionIndex);
     setDeleteDialog(false);
   };
 
@@ -750,10 +752,10 @@ function AddEditQuestion(props) {
                         </Grid>
                       )}
                       <Grid item container alignItems="center" mb={1}>
-                        <Grid item xs={12}>
+                        {/* <Grid item xs={12}>
                           <Typography variant="body1">Prompt Information</Typography>
-                        </Grid>
-                        <Grid item xs={12}>
+                        </Grid> */}
+                        {/* <Grid item xs={12}>
                           <div
                             style={{
                               width: '100%',
@@ -1003,7 +1005,7 @@ function AddEditQuestion(props) {
                               </Menu>
                             </div>
                           </div>
-                        </Grid>
+                        </Grid> */}
                       </Grid>
                       <Grid item container alignItems="center">
                         <Grid item xs={4}>
@@ -1062,9 +1064,8 @@ function AddEditQuestion(props) {
                         type === 'Fill in the blanks' ||
                         type === 'Mix and Match'
                       )
-                        setOptions([...options, { option: '', prompt: [] }]);
-                      else
-                        setOptions([...options, { option: '', correctAnswer: false, prompt: [] }]);
+                        setOptions([...options, { option: '' }]);
+                      else setOptions([...options, { option: '', correctAnswer: false }]);
                     }}
                   >
                     Add Option
@@ -1233,10 +1234,10 @@ function AddEditQuestion(props) {
                     e.target.value === 'Mix and Match' ||
                     e.target.value === 'Tapping Rhythm'
                   ) {
-                    setOptions([{ option: '', prompt: [] }]);
+                    setOptions([{ option: '' }]);
                     setAnswer('');
                   } else {
-                    setOptions([{ option: '', correctAnswer: true, prompt: [] }]);
+                    setOptions([{ option: '', correctAnswer: true }]);
                     setAnswer('');
                   }
                 },
@@ -1252,13 +1253,13 @@ function AddEditQuestion(props) {
                 'Question'
               )}
               {topicInput('title', 'Title', title, (e) => setTitle(e.target.value), 'Title')}
-              {topicInput(
+              {/* {topicInput(
                 'composerName',
                 'Composer Name',
                 composerName,
                 (e) => setComposerName(e.target.value),
                 'Composer Name'
-              )}
+              )} */}
               {topicInput(
                 'topic',
                 'Topic',
@@ -1290,13 +1291,13 @@ function AddEditQuestion(props) {
           </Card>
         )}
       </Container>
-      <CommonDialog
+      {/* <CommonDialog
         open={deleteDialog}
         close={() => setDeleteDialog(false)}
         onSuccess={() => handleDeletePromptComponent()}
         dialogTitle={PROMPT}
         dialogMessage={DELETE_PROMPT_COMPONENT_MESSAGE}
-      />
+      /> */}
     </Page>
   );
 }

@@ -136,7 +136,7 @@ function Topic(props) {
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-            Topic
+            GK-Category
           </Typography>
           <Button
             variant="contained"
