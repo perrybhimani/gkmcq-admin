@@ -1182,7 +1182,8 @@ function AddEditQuestion(props) {
       </Grid>
     </Box>
   );
-   console.log("test")
+  console.log("test")
+  console.log('test2')
   return (
     <Page
       title={`${
