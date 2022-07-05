@@ -22,7 +22,13 @@ import draftToHtml from 'draftjs-to-html';
 import { Editor } from 'react-draft-wysiwyg';
 import Iconify from '../components/Iconify';
 import Dropdown from '../components/Dropdown';
-import { getErrorMessage, positionArray, numberArray, promptTypeArray } from '../utils/appUtils';
+import {
+  getErrorMessage,
+  positionArray,
+  numberArray,
+  promptTypeArray,
+  sectionArray
+} from '../utils/appUtils';
 import Textbox from '../components/Textbox';
 import Page from '../components/Page';
 import { createTopic } from '../actions/adminActions/addTopic';
@@ -97,6 +103,7 @@ function AddEditTopic(props) {
   const [promptIndex, setPromptIndex] = useState(null);
   const [promptType, setPromptType] = useState(null);
   const [deleteDialog, setDeleteDialog] = useState(false);
+  const [section, setSection] = useState('Kids');
   const inputFile = useRef(null);
 
   const { state, pathname } = useLocation();
@@ -126,10 +133,11 @@ function AddEditTopic(props) {
 
   useEffect(() => {
     if (pathname === '/dashboard/edit/topic' && state) {
-      const { name, image, level, rowNo, position, prompt } = state;
+      const { name, image, level, rowNo, position, prompt, section } = state;
       setName(name);
       setDisplayImage(image);
       setLevel(level);
+      setSection(section);
       setRowNo(rowNo);
       setPosition(position);
       const tempPrompt = prompt || [];
@@ -153,6 +161,7 @@ function AddEditTopic(props) {
       name,
       image: displayImage,
       level,
+      section,
       rowNo,
       position,
       prompt: newPrompt
@@ -169,11 +178,10 @@ function AddEditTopic(props) {
       };
       return prompt;
     });
-    const data = { prompt: newPrompt, level };
+    const data = { prompt: newPrompt, level, section };
 
     if (state.name !== name) data.name = name;
     if (state.image !== displayImage) data.image = displayImage;
-    // if (state.level !== level) data.level = level;
     if (state.rowNo !== rowNo || state.position !== position) {
       data.rowNo = rowNo;
       data.position = position;
@@ -651,6 +659,15 @@ function AddEditTopic(props) {
               width: 500
             }}
           >
+            {topicInput(
+              'section',
+              'Section',
+              section,
+              (e) => setSection(e.target.value),
+              'Section',
+              'select',
+              sectionArray
+            )}
             {topicInput('name', 'Name', name, (e) => setName(e.target.value), 'Name')}
             {topicInput('image', 'Image', displayImage, null, 'Topic Image', 'image')}
             {topicInput(

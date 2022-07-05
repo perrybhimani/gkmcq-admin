@@ -228,7 +228,6 @@ function AddEditQuestion(props) {
   useEffect(() => {
     if (state && pathname === '/dashboard/edit/question') {
       const data = props.updateQuestionData ? props.updateQuestionData : null;
-      console.log('data', data);
       if (data) {
         props.clearUploadFile();
       }
@@ -1182,8 +1181,6 @@ function AddEditQuestion(props) {
       </Grid>
     </Box>
   );
-  console.log("test")
-  console.log('test2')
   return (
     <Page
       title={`${

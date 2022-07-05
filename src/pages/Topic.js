@@ -35,6 +35,7 @@ import { UserListHead, UserListToolbar, UserMoreMenu } from '../sections/@dashbo
 
 const TABLE_HEAD = [
   { id: 'name', label: 'Name', alignRight: false },
+  { id: 'section', label: 'Section', alignRight: false },
   { id: 'level', label: 'Level', alignRight: false },
   { id: 'position', label: 'Position', alignRight: false },
   { id: 'rowNo', label: 'Row Number', alignRight: false },
@@ -175,7 +176,8 @@ function Topic(props) {
                         {filteredTopic
                           .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                           .map((row) => {
-                            const { _id, name, image, level, position, rowNo, prompt } = row;
+                            const { _id, name, image, level, position, rowNo, prompt, section } =
+                              row;
 
                             return (
                               <TableRow hover key={_id} tabIndex={-1} role="checkbox">
@@ -187,6 +189,7 @@ function Topic(props) {
                                     </Typography>
                                   </Stack>
                                 </TableCell>
+                                <TableCell align="left">{section}</TableCell>
                                 <TableCell align="left">{level}</TableCell>
                                 <TableCell align="left">{position}</TableCell>
                                 <TableCell align="left">{rowNo}</TableCell>
@@ -199,7 +202,16 @@ function Topic(props) {
                                     edit
                                     onEdit={() =>
                                       navigate('/dashboard/edit/topic', {
-                                        state: { name, image, level, rowNo, position, _id, prompt }
+                                        state: {
+                                          name,
+                                          image,
+                                          level,
+                                          section,
+                                          rowNo,
+                                          position,
+                                          _id,
+                                          prompt
+                                        }
                                       })
                                     }
                                   />

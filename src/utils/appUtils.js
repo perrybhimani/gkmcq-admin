@@ -44,3 +44,4 @@ export const questionTypes = [
 export const promptTypeArray = ['Text', 'Image', 'Audio'];
 
 export const numberArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+export const sectionArray = ['Kids', 'Adults'];
